@@ -1,4 +1,7 @@
 streamlit==1.26.0
 numpy
 catboost
-pillow==9.5.0
+numpy
+pandas
+catboost
+joblib

@@ -7,10 +7,12 @@ Created on Tue Dec 10 17:55:51 2024
 import numpy as np
 import pickle
 import streamlit as st
-
+import pandas as pd
 # Load the trained model once at the start of the script
 loaded_model = pickle.load(open('catboost_model.sav', 'rb'))
-
+minmax = joblib.load('minmax.pkl')
+standard = joblib.load('standard.pkl')
+encoders = joblib.load('encoders.pkl')
 def diabetes_prediction(input_data):
     input_data_as_numpy_array = np.asarray(input_data, dtype=object)
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
@@ -121,8 +123,48 @@ def main():
 
     Diagnosis = ''
     if st.button('Get Alzheimer Test Result'):
-        Diagnosis = diabetes_prediction(input_features)
-        st.success(Diagnosis)
+        columns = [
+    'Age', 'Gender', 'Ethnicity', 'EducationLevel', 'BMI', 'Smoking', 'AlcoholConsumption',
+    'PhysicalActivity', 'DietQuality', 'SleepQuality', 'FamilyHistoryAlzheimers',
+    'CardiovascularDisease', 'Diabetes', 'Depression', 'HeadInjury', 'Hypertension',
+    'SystolicBP', 'DiastolicBP', 'CholesterolTotal', 'CholesterolLDL', 'CholesterolHDL',
+    'CholesterolTriglycerides', 'MMSE', 'FunctionalAssessment', 'MemoryComplaints',
+    'BehavioralProblems', 'ADL', 'Confusion', 'Disorientation', 'PersonalityChanges',
+    'DifficultyCompletingTasks', 'Forgetfulness', 'AgeGroup', 'BMICategory',
+    'AlcoholConsumptionCategory', 'PhysicalActivityCategory', 'ComorbidityScore',
+    'CognitiveBehavioralIssuesCount', 'MemoryAttentionCluster', 'MMSESeverity'
+]
+
+    input_df = pd.DataFrame([input_features], columns=columns)
+
+# 2. Identify which columns are numeric and which are categorical based on your training
+    numerical_columns = [
+    'SystolicBP', 'DiastolicBP', 'CholesterolTotal', 'CholesterolLDL',
+    'CholesterolHDL', 'CholesterolTriglycerides'
+]
+
+# Match these exactly as in training. The categorical columns should be the same ones
+# you applied LabelEncoder to during training.
+    categorical_columns = [
+    'BMICategory', 'AlcoholConsumptionCategory', 'AgeGroup',
+    'PhysicalActivityCategory', 'MMSESeverity'
+]
+
+# 3. Apply the transformations
+# Transform numerical columns
+    input_df[numerical_columns] = minmax.transform(input_df[numerical_columns])
+    input_df[numerical_columns] = standard.transform(input_df[numerical_columns])
+
+# Transform categorical columns using the saved encoders
+    for col in categorical_columns:
+        input_df[col] = encoders[col].transform(input_df[col].astype(str))
+
+# Convert the DataFrame back to a list/array for prediction
+    final_input = input_df.values.tolist()[0]
+
+# 4. Now call the prediction function with the transformed input
+    Diagnosis = diabetes_prediction(final_input)
+    st.success(Diagnosis)
 
 if __name__ == '__main__':
     main()
