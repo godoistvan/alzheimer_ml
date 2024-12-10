@@ -19,25 +19,12 @@ def diabetes_prediction(input_data):
     prediction = loaded_model.predict(input_data_reshaped)
 
     if prediction[0] == 0:
-        return 'The person has Alzheimer\'s'
+        return 'Ennek az embernek nincs Alzheimere'
     else:
-        return 'The person does not have Alzheimer\'s'
+        return 'Ennek az embernek van Alzheimere'
 
 def main():
     st.title('Alzheimer Prediction Web App')
-
-    # Features to be used:
-    # 'Age', 'Gender', 'Ethnicity', 'EducationLevel', 'BMI', 'Smoking',
-    # 'AlcoholConsumption', 'PhysicalActivity', 'DietQuality', 'SleepQuality',
-    # 'FamilyHistoryAlzheimers', 'CardiovascularDisease', 'Diabetes',
-    # 'Depression', 'HeadInjury', 'Hypertension', 'SystolicBP', 'DiastolicBP',
-    # 'CholesterolTotal', 'CholesterolLDL', 'CholesterolHDL',
-    # 'CholesterolTriglycerides', 'MMSE', 'FunctionalAssessment',
-    # 'MemoryComplaints', 'BehavioralProblems', 'ADL', 'Confusion',
-    # 'Disorientation', 'PersonalityChanges', 'DifficultyCompletingTasks',
-    # 'Forgetfulness'
-
-    # Numeric Inputs
     Age = st.number_input('Age', min_value=60, max_value=90, value=65)
     BMI = st.number_input('BMI', min_value=15.0, max_value=40.0, value=25.0)
     AlcoholConsumption = st.number_input('Alcohol Consumption (units/week)', min_value=0, max_value=20, value=0)
@@ -73,7 +60,7 @@ def main():
     DifficultyCompletingTasks = st.selectbox('Difficulty Completing Tasks', options=[0,1], format_func=lambda x: 'No' if x == 0 else 'Yes')
     Forgetfulness = st.selectbox('Forgetfulness', options=[0,1], format_func=lambda x: 'No' if x == 0 else 'Yes')
 
-    # Prepare the input features
+    
     input_features = [
         Age, Gender, Ethnicity, EducationLevel, BMI, Smoking, AlcoholConsumption,
         PhysicalActivity, DietQuality, SleepQuality, FamilyHistoryAlzheimers,
@@ -84,11 +71,11 @@ def main():
         DifficultyCompletingTasks, Forgetfulness
     ]
 
-    # 'Diagnosis' is the target and is not included at inference.
+    
 
     Diagnosis = ''
     if st.button('Get Alzheimer Test Result'):
-        # Columns excluding 'Diagnosis' since we are predicting it
+       
         columns = [
             'Age', 'Gender', 'Ethnicity', 'EducationLevel', 'BMI', 'Smoking',
             'AlcoholConsumption', 'PhysicalActivity', 'DietQuality', 'SleepQuality',
@@ -102,7 +89,7 @@ def main():
 
         input_df = pd.DataFrame([input_features], columns=columns)
 
-        # No scaling or encoding is applied here.
+     
         final_input = input_df.values.tolist()[0]
 
         Diagnosis = diabetes_prediction(final_input)
