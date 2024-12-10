@@ -134,7 +134,7 @@ def main():
     'DifficultyCompletingTasks', 'Forgetfulness', 'AgeGroup', 'BMICategory',
     'AlcoholConsumptionCategory', 'PhysicalActivityCategory', 'ComorbidityScore',
     'CognitiveBehavioralIssuesCount', 'MemoryAttentionCluster', 'MMSESeverity'
-]
+    ]
 
     input_df = pd.DataFrame([input_features], columns=columns)
 
@@ -142,14 +142,14 @@ def main():
     numerical_columns = [
     'SystolicBP', 'DiastolicBP', 'CholesterolTotal', 'CholesterolLDL',
     'CholesterolHDL', 'CholesterolTriglycerides'
-]
+    ]
 
 # Match these exactly as in training. The categorical columns should be the same ones
 # you applied LabelEncoder to during training.
     categorical_columns = [
     'BMICategory', 'AlcoholConsumptionCategory', 'AgeGroup',
     'PhysicalActivityCategory', 'MMSESeverity'
-]
+    ]
 
 # 3. Apply the transformations
 # Transform numerical columns
