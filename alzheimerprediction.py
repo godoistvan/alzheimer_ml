@@ -66,14 +66,14 @@ def main():
 
     # Additional fields: If the model expects encoded values, you must encode them here.
     # For demonstration, let's assume these are either already encoded or not used.
-    AgeGroup = st.text_input('Age Group', 'N/A')
-    BMICategory = st.text_input('BMI Category', 'N/A')
-    AlcoholConsumptionCategory = st.text_input('Alcohol Consumption Category', 'N/A')
-    PhysicalActivityCategory = st.text_input('Physical Activity Category', 'N/A')
+    AgeGroup = st.text_input('Age Group', 'Elderly')
+    BMICategory = st.text_input('BMI Category', 'Normal')
+    AlcoholConsumptionCategory = st.text_input('Alcohol Consumption Category', 'Moderate')
+    PhysicalActivityCategory = st.text_input('Physical Activity Category', 'Moderate')
     ComorbidityScore = st.number_input('Comorbidity Score', min_value=0, value=0)
     CognitiveBehavioralIssuesCount = st.number_input('Cognitive Behavioral Issues Count', min_value=0, value=0)
-    MemoryAttentionCluster = st.text_input('Memory Attention Cluster', 'N/A')
-    MMSESeverity = st.text_input('MMSE Severity', 'N/A')
+    MemoryAttentionCluster = st.text_input('Memory Attention Cluster', '2')
+    MMSESeverity = st.text_input('MMSE Severity', 'Normal')
 
     # Prepare the input features
     # If the model expects numeric encodings for the textual categories (like AgeGroup),
