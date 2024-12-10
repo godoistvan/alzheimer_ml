@@ -1,4 +1,4 @@
 streamlit==1.26.0
 numpy
-pickle5
 catboost
+pillow==9.5.0
