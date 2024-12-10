@@ -66,7 +66,6 @@ def main():
 
     # Additional fields: If the model expects encoded values, you must encode them here.
     # For demonstration, let's assume these are either already encoded or not used.
-    AgeGroup = st.text_input('Age Group', 'Elderly')
     BMICategory = st.text_input('BMI Category', 'Normal')
     AlcoholConsumptionCategory = st.text_input('Alcohol Consumption Category', 'Moderate')
     PhysicalActivityCategory = st.text_input('Physical Activity Category', 'Moderate')
@@ -112,7 +111,6 @@ def main():
         PersonalityChanges,
         DifficultyCompletingTasks,
         Forgetfulness,
-        AgeGroup,
         BMICategory,
         AlcoholConsumptionCategory,
         PhysicalActivityCategory,
@@ -131,7 +129,7 @@ def main():
             'SystolicBP', 'DiastolicBP', 'CholesterolTotal', 'CholesterolLDL', 'CholesterolHDL',
             'CholesterolTriglycerides', 'MMSE', 'FunctionalAssessment', 'MemoryComplaints',
             'BehavioralProblems', 'ADL', 'Confusion', 'Disorientation', 'PersonalityChanges',
-            'DifficultyCompletingTasks', 'Forgetfulness', 'AgeGroup', 'BMICategory',
+            'DifficultyCompletingTasks', 'Forgetfulness','BMICategory',
             'AlcoholConsumptionCategory', 'PhysicalActivityCategory', 'ComorbidityScore',
             'CognitiveBehavioralIssuesCount', 'MemoryAttentionCluster', 'MMSESeverity'
         ]
@@ -145,7 +143,7 @@ def main():
         ]
 
         categorical_columns = [
-        'BMICategory', 'AlcoholConsumptionCategory', 'AgeGroup',
+        'BMICategory', 'AlcoholConsumptionCategory',
         'PhysicalActivityCategory', 'MMSESeverity'
         ]
 
