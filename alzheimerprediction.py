@@ -136,30 +136,30 @@ def main():
             'CognitiveBehavioralIssuesCount', 'MemoryAttentionCluster', 'MMSESeverity'
         ]
 
-    input_df = pd.DataFrame([input_features], columns=columns)
+        input_df = pd.DataFrame([input_features], columns=columns)
 
     # Identify numerical and categorical columns
-    numerical_columns = [
+        numerical_columns = [
         'SystolicBP', 'DiastolicBP', 'CholesterolTotal', 'CholesterolLDL',
         'CholesterolHDL', 'CholesterolTriglycerides'
-    ]
+        ]
 
-    categorical_columns = [
+        categorical_columns = [
         'BMICategory', 'AlcoholConsumptionCategory', 'AgeGroup',
         'PhysicalActivityCategory', 'MMSESeverity'
-    ]
+        ]
 
     # Apply transformations
-    input_df[numerical_columns] = minmax.transform(input_df[numerical_columns])
-    input_df[numerical_columns] = standard.transform(input_df[numerical_columns])
+        input_df[numerical_columns] = minmax.transform(input_df[numerical_columns])
+        input_df[numerical_columns] = standard.transform(input_df[numerical_columns])
 
-    for col in categorical_columns:
-        input_df[col] = encoders[col].transform(input_df[col].astype(str))
+        for col in categorical_columns:
+            input_df[col] = encoders[col].transform(input_df[col].astype(str))
 
-    final_input = input_df.values.tolist()[0]
+        final_input = input_df.values.tolist()[0]
 
-    Diagnosis = diabetes_prediction(final_input)
-    st.success(Diagnosis)
+        Diagnosis = diabetes_prediction(final_input)
+        st.success(Diagnosis)
 
 
 if __name__ == '__main__':
