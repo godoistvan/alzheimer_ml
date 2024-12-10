@@ -8,6 +8,7 @@ import numpy as np
 import pickle
 import streamlit as st
 import pandas as pd
+import joblib
 # Load the trained model once at the start of the script
 loaded_model = pickle.load(open('catboost_model.sav', 'rb'))
 minmax = joblib.load('minmax.pkl')
